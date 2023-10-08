@@ -1,0 +1,34 @@
+version: '3.7'
+
+services:
+  servicio-nodejs:
+    image: dockerfile-node
+    ports:
+      - "8090:3000"
+    networks:
+      - mynetwork-swarm
+    deploy:
+      replicas: 3  
+
+  mysql:
+    image: dockerfile-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root1
+    ports:
+      - "3306:3306"
+    networks:
+        - mynetwork-swarm
+    deploy:
+      replicas: 1 
+
+  servicio-apache:
+    image: dockerfile-php
+    ports:
+      - "8080:80"
+    networks:
+      - mynetwork-swarm
+    deploy:
+      replicas: 2  
+
+networks:
+  mynetwork-swarm:
